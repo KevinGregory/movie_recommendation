@@ -24,7 +24,7 @@ install:          ## Install the project in dev mode.
 	@echo "Don't forget to run 'make virtualenv' if you got errors."
 	$(ENV_PREFIX)pip install -e .[test]
 
-.PHONY: fmt
+.PHONY: format
 fmt:              ## Format code using black & isort.
 	$(ENV_PREFIX)isort movie_recommendation/
 	$(ENV_PREFIX)black -l 79 movie_recommendation/
