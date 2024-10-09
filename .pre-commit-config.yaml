@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.272  # Replace with the version you want to use
+    hooks:
+      - id: ruff
+        args: ['--fix']
+
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0  # Update this to your Black version
+    hooks:
+      - id: black
