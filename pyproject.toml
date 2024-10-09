@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "movie-recommendation"
+version = '0.1.0'
+description = "scrapes data from imdb and uses embeddings to build a recommendation system"
+authors = ["KevinGregory <kevingregory604@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+bs4 = "^0.0.2"
+numpy = "^2.1.2"
+pandas = "^2.2.3"
+requests = "^2.32.3"
+ruff = "^0.6.9"
+pytest = "^8.3.3"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+flake8 = "^7.1.1"
+isort = "^5.13.2"
+mypy = "^1.11.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
