@@ -18,6 +18,12 @@ show:             ## Show the current environment.
 	@$(ENV_PREFIX)python -V
 	@$(ENV_PREFIX)python -m site
 
+.PHONY: install
+install:          ## Install the project in dev mode.
+	@if [ "$(USING_POETRY)" ]; then poetry install && exit; fi
+	@echo "Don't forget to run 'make virtualenv' if you got errors."
+	$(ENV_PREFIX)pip install -e .[test]
+
 .PHONY: format
 format:              ## Format code using black & isort.
 	$(ENV_PREFIX)isort movie_recommendation/
