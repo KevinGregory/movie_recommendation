@@ -1,0 +1,52 @@
+name: Version Bump
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install Poetry and dependencies
+        run: |
+          pip install poetry
+          poetry install
+
+      - name: Extract PR title
+        id: extract_title
+        run: |
+          echo "PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+
+      - name: Determine version bump
+        id: determine_version
+        run: |
+          if [[ "${{ env.PR_TITLE }}" == feat:* ]]; then
+            echo "VERSION_BUMP=minor" >> $GITHUB_ENV
+          elif [[ "${{ env.PR_TITLE }}" == major:* ]]; then
+            echo "VERSION_BUMP=major" >> $GITHUB_ENV
+          elif [[ "${{ env.PR_TITLE }}" == fix:* ]]; then
+            echo "VERSION_BUMP=patch" >> $GITHUB_ENV
+          else
+            echo "No version bump detected."
+            exit 1
+
+      - name: Bump version
+        run: poetry run bump2version ${{ env.VERSION_BUMP }}
+
+      - name: Push changes back to repo
+        run: |
+          git config --global user.email "your-email@example.com"
+          git config --global user.name "GitHub Action"
+          git add pyproject.toml
+          git commit -m "ci: bump version [skip ci]"
+          git push origin main
