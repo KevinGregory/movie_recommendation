@@ -25,7 +25,7 @@ install:          ## Install the project in dev mode.
 	$(ENV_PREFIX)pip install -e .[test]
 
 .PHONY: format
-fmt:              ## Format code using black & isort.
+format:              ## Format code using black & isort.
 	$(ENV_PREFIX)isort movie_recommendation/
 	$(ENV_PREFIX)black -l 79 movie_recommendation/
 	$(ENV_PREFIX)black -l 79 tests/
